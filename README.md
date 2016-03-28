@@ -1,52 +1,19 @@
-# Exemplo de upload múltiplo com CI 3 e DropzoneJS
+# Estrutura base para exemplos de tutorias
 
-Esse é um exemplo simples que utiliza o DropzoneJS para possibilitar upload múltiplo no CI de forma fácil e com Drag & Drop de arquivos.
+Essa é a estrutura base para exemplos de tutoriais do portal **Universidade CodeIgniter**.
 
-Na estrutura padrão do CI foi adicionado o diretório `assets`, com os seguintes subdiretórios: `css` e `js`. Nesses diretórios são armazenados os arquivos do DropzoneJS.
+A estrutura é composta por:
 
-Na view `welcome_message.php` foi adicionado o formulário com a classe `dropzone` e o path para execução do upload (welcome/upload). Só o fato de ter informado a classe `dropzone` no elemento `form` e ter adicionado o carregamento do arquivo `dropzone.js` na página, faz com que o mesmo seja renderizado de forma automática.
+- [CodeIgniter](http://codeigniter.com) na versão 3.0.6
+- [Bootstrap](http://getbootstrap.com) na versão 3.3.6
+- [jQuery](http://jquery.com) na versão 1.12.2
 
-```html
-<div id="container">
-	<h1>Upload múltiplo com CodeIgniter e DropzoneJS</h1>
+Se no seu tutorial precisar utilizar outros plugins ou libraries, basta adicioná-los no repositório `assets/js/plugins` e/ou `assets/css/plugins`, conforme o tipo do arquivo.
 
-	<div id="body">
-		<form action="<?=base_url('welcome/upload')?>" class="dropzone" id="myAwesomeDropzone" enctype="multipart/form-data"></form>
-	</div>
+Sempre que um tutorial tiver um exemplo, deverá utilizar essa estrutura.
 
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
-<script src="<?= base_url('assets/js/dropzone.js')?>"></script>
-```
+## Quer ser um autor no portal?
 
-No controller `Welcome` foi adicionado o método `upload`, que contem a rotina de upload de arquivo. Está implementada de forma simples, mas dependendo da necessidade é possível ampliar a rotina, com diversos tipos de validação e procedimentos.
+Qualquer desenvolvedor com conhecimento em CodeIgniter pode publicar conteúdo no portal. Para isso basta preparar um post e enviar para a curadoria através do email contato@universidadecodeigniter.com.br. Ao enviar o post, envie as imagens utilizadas no tutorial e o código-fonte de exemplo - seguindo o padrão desse repositório - tudo em um único arquivo compactado.
 
-```php
-public function upload(){
-  $this->load->library('upload');
-
-  $path = './uploads';
-
-  $config['upload_path'] = $path;
-  $config['allowed_types'] = 'gif|jpg|jpeg|png';
-  $config['max_size'] = '5000';
-
-  if (!is_dir($path)) {
-    mkdir($path, 0777, $recursive = true);
-  }
-
-  $this->upload->initialize($config);
-
-  if (!$this->upload->do_upload('file')) {
-    return false;
-  } else {
-    return true;
-  }
-}
-```
-
-Para facilitar a compreensão, o código do método `upload` está todo comentado no arquivo `controllers/Welcome.php`.
-
-### Curta a fanpage e fique por dentro de novidades
-
-https://www.facebook.com/universidadecodeigniter/
+http://www.universidadecodeigniter.com.br
